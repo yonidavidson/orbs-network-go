@@ -27,17 +27,20 @@ type Config interface {
 }
 
 type levelDbBlockPersistence struct {
+	//FIXME remove leftovers
 	blockWritten chan bool
-	blockPairs   []*protocol.BlockPairContainer
-	config       Config
-	reporting    instrumentation.BasicLogger
-	db           *leveldb.DB
+	//FIXME remove leftovers
+	blockPairs []*protocol.BlockPairContainer
+	config     Config
+	reporting  instrumentation.BasicLogger
+	db         *leveldb.DB
 }
 
 type config struct {
 	name string
 }
 
+//FIXME remove
 func (c *config) NodeId() string {
 	return c.name
 }

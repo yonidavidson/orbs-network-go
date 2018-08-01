@@ -26,6 +26,7 @@ func compareRsBlocks(a *protocol.ResultsBlockContainer, b *protocol.ResultsBlock
 	Expect(a.ContractStateDiffs[0].Equal(b.ContractStateDiffs[0])).To(BeTrue())
 }
 
+//FIXME cmp.Equal
 func compareContainers(a *protocol.BlockPairContainer, b *protocol.BlockPairContainer) {
 	compareTxBlocks(a.TransactionsBlock, b.TransactionsBlock)
 	compareRsBlocks(a.ResultsBlock, b.ResultsBlock)
@@ -35,6 +36,7 @@ func prepareStorage() (adapter.BlockPersistence, []*protocol.BlockPairContainer)
 	config := adapter.NewLevelDbBlockPersistenceConfig("node1")
 	db := adapter.NewLevelDbBlockPersistence(config).WithLogger(instrumentation.GetLogger(instrumentation.String("adapter", "LevelDBPersistence")))
 
+	//FIXME extract to a separate method
 	block1 := builders.BlockPair().WithHeight(primitives.BlockHeight(1)).Build()
 	block2 := builders.BlockPair().WithHeight(primitives.BlockHeight(2)).Build()
 
@@ -46,6 +48,7 @@ func prepareStorage() (adapter.BlockPersistence, []*protocol.BlockPairContainer)
 
 var _ = Describe("LevelDb persistence", func() {
 	BeforeEach(func() {
+		//FIXME move to prepare
 		os.RemoveAll("/tmp/db")
 	})
 

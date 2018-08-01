@@ -206,3 +206,23 @@ func (bp *levelDbBlockPersistence) loadResultsBlock(height primitives.BlockHeigh
 
 	return constructResultsBlockFromStorage(rsBlockHeaderRaw, rsBlockProofRaw, rsStateDiffs, rsTransactionReceipts), nil
 }
+
+func anyErrors(errors ...error) (bool, error) {
+	for _, err := range errors {
+		if err != nil {
+			return true, err
+		}
+	}
+
+	return false, nil
+}
+
+func anyConditions(bools []bool) bool {
+	for _, val := range bools {
+		if val == false {
+			return false
+		}
+	}
+
+	return true
+}
