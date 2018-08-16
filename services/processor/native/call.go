@@ -55,6 +55,8 @@ func (s *service) verifyInternalMethodCall(contractInfo *types.ContractInfo, met
 
 func (s *service) processMethodCall(ctx types.Context, contractInfo *types.ContractInfo, methodInfo *types.MethodInfo, args []*protocol.MethodArgument) (contractOutputArgs []*protocol.MethodArgument, contractOutputErr error, err error) {
 	defer func() {
+		//TODO maybe it's a good place for a metric
+		s.reporting.Info("processor finished executing contract", instrumentation.Stringable("contract", contractInfo.Name), instrumentation.Stringable("method", methodInfo.Name))
 		if r := recover(); r != nil {
 			err = errors.Errorf("call method '%s' panicked: %v", methodInfo.Name, r)
 		}
